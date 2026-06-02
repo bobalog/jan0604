@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>🌸 일본어 경어 마스터</title>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --sakura: #f4b8c8;
+    --sakura-deep: #e07a99;
+    --mint: #b8e4d8;
+    --mint-deep: #4aab8c;
+    --lavender: #d4c5f0;
+    --lavender-deep: #8b6fc1;
+    --cream: #fdf8f2;
+    --ink: #2a1f3d;
+    --ink-soft: #5a4a6a;
+    --gold: #e8c96a;
+    --paper: #fff9f0;
+    --ruled: #e8ddd0;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    background: var(--cream);
+    color: var(--ink);
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    background-image:
+      radial-gradient(circle at 15% 20%, rgba(244,184,200,0.25) 0%, transparent 40%),
+      radial-gradient(circle at 85% 75%, rgba(212,197,240,0.25) 0%, transparent 40%),
+      radial-gradient(circle at 50% 50%, rgba(184,228,216,0.1) 0%, transparent 60%);
+    pointer-events: none;
+    z-index: 0;
+  }
+  .petal {
+    position: fixed; font-size: 18px; opacity: 0.4;
+    animation: fall linear infinite; pointer-events: none; z-index: 1;
+  }
+  @keyframes fall {
+    0% { transform: translateY(-20px) rotate(0deg); opacity: 0.5; }
+    100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+  }
+  header {
+    position: relative; z-index: 10; text-align: center;
+    padding: 3rem 1rem 2rem;
+    background: linear-gradient(180deg, rgba(244,184,200,0.3) 0%, transparent 100%);
+    border-bottom: 1px solid rgba(244,184,200,0.4);
+  }
+  .header-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(1.2rem, 4vw, 1.8rem);
+    color: var(--sakura-deep); letter-spacing: 0.3em; margin-bottom: 0.3rem;
+  }
+  .header-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 7vw, 3.5rem); color: var(--ink); line-height: 1.1;
+  }
+  .header-sub { font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.5rem; font-weight: 300; letter-spacing: 0.05em; }
+  nav {
+    position: sticky; top: 0; z-index: 100;
+    display: flex; justify-content: center; gap: 0.5rem;
+    padding: 0.8rem 1rem;
+    background: rgba(253,248,242,0.9); backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--ruled); flex-wrap: wrap;
+  }
+  .tab-btn {
+    padding: 0.5rem 1.2rem; border-radius: 50px; border: 1.5px solid transparent;
+    background: white; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+    font-size: 0.82rem; font-weight: 500; color: var(--ink-soft);
+    transition: all 0.25s ease; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  .tab-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  .tab-btn.active-son { background: var(--lavender); border-color: var(--lavender-deep); color: var(--lavender-deep); }
+  .tab-btn.active-study { background: var(--mint); border-color: var(--mint-deep); color: #0d5c45; }
+  .tab-btn.active-write { background: var(--sakura); border-color: var(--sakura-deep); color: #8a3a56; }
+  .tab-btn.active-quiz { background: var(--gold); border-color: #c4a04a; color: #6b4e00; }
+  .section { display: none; position: relative; z-index: 5; padding: 2rem 1rem 4rem; max-width: 900px; margin: 0 auto; }
+  .section.active { display: block; animation: fadeIn 0.4s ease; }
+  @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+  .section-head { text-align: center; margin-bottom: 2rem; }
+  .section-head h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); }
+  .section-head p { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.3rem; }
+
+  /* STUDY */
+  .table-wrapper { overflow-x: auto; border-radius: 16px; box-shadow: 0 4px 24px rgba(0,0,0,0.08); }
+  table { width: 100%; border-collapse: collapse; background: white; min-width: 560px; }
+  thead { background: linear-gradient(135deg, var(--lavender) 0%, var(--sakura) 100%); }
+  thead th { padding: 14px 16px; font-size: 0.78rem; font-weight: 700; color: var(--ink); letter-spacing: 0.05em; text-align: center; }
+  tbody tr { border-bottom: 1px solid #f0e8e0; transition: background 0.2s; }
+  tbody tr:hover { background: rgba(244,184,200,0.08); }
+  tbody tr:last-child { border-bottom: none; }
+  td { padding: 12px 16px; text-align: center; vertical-align: middle; }
+  .jp-word { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; }
+  .kr-read { font-size: 0.7rem; color: var(--ink-soft); margin-top: 2px; }
+  .meaning { font-size: 0.78rem; color: var(--ink-soft); }
+  .tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 9px; border-radius: 20px; letter-spacing: 0.05em; }
+  .tag-son { background: var(--lavender); color: var(--lavender-deep); }
+  .tag-ken { background: var(--mint); color: #0d5c45; }
+  .formula-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 1rem; margin-top: 1.5rem; }
+  .formula-card { background: white; border-radius: 16px; padding: 1.2rem; border: 1.5px solid; box-shadow: 0 2px 12px rgba(0,0,0,0.06); transition: transform 0.2s; }
+  .formula-card:hover { transform: translateY(-3px); }
+  .formula-card.son { border-color: var(--lavender-deep); }
+  .formula-card.ken { border-color: var(--mint-deep); }
+  .formula-card.cmd { border-color: var(--gold); }
+  .formula-card h3 { font-size: 0.78rem; font-weight: 700; margin-bottom: 0.5rem; }
+  .formula-card h3.son { color: var(--lavender-deep); }
+  .formula-card h3.ken { color: var(--mint-deep); }
+  .formula-card h3.cmd { color: #c4a04a; }
+  .formula-text { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; color: var(--ink); }
+  .formula-ex { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.4rem; }
+
+  /* ====== WHITEBOARD WRITE ====== */
+  .wb-layout {
+    display: grid;
+    grid-template-columns: 260px 1fr;
+    gap: 1.2rem;
+    align-items: start;
+  }
+  @media (max-width: 680px) {
+    .wb-layout { grid-template-columns: 1fr; }
+  }
+
+  /* Word list panel */
+  .wb-wordlist {
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--ruled);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  .wb-wordlist-header {
+    padding: 0.9rem 1rem;
+    background: linear-gradient(135deg, var(--lavender) 0%, var(--sakura) 100%);
+    font-size: 0.78rem;
+    font-weight: 700;
+    color: var(--ink);
+    letter-spacing: 0.04em;
+  }
+  .wb-word-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.7rem 1rem;
+    border-bottom: 1px solid #f5ede5;
+    cursor: pointer;
+    transition: background 0.18s;
+    gap: 0.5rem;
+  }
+  .wb-word-item:last-child { border-bottom: none; }
+  .wb-word-item:hover { background: rgba(244,184,200,0.12); }
+  .wb-word-item.selected { background: rgba(212,197,240,0.25); }
+  .wb-word-jp {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1rem;
+    font-weight: 700;
+    color: var(--ink);
+    flex: 1;
+  }
+  .wb-word-kr { font-size: 0.62rem; color: var(--ink-soft); }
+  .wb-word-tag {
+    font-size: 0.58rem; font-weight: 700;
+    padding: 2px 7px; border-radius: 20px;
+    flex-shrink: 0;
+  }
+  .wb-tts-btn {
+    width: 28px; height: 28px;
+    border-radius: 50%;
+    border: 1.5px solid var(--lavender-deep);
+    background: white;
+    color: var(--lavender-deep);
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.18s;
+    flex-shrink: 0;
+  }
+  .wb-tts-btn:hover { background: var(--lavender); transform: scale(1.1); }
+  .wb-tts-btn.speaking { background: var(--lavender-deep); color: white; animation: pulse 0.8s infinite; }
+  @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.15); } }
+
+  /* Whiteboard panel */
+  .wb-board-panel {
+    background: white;
+    border-radius: 18px;
+    border: 1px solid var(--ruled);
+    box-shadow: 0 2px 16px rgba(0,0,0,0.07);
+    overflow: hidden;
+  }
+  .wb-board-header {
+    padding: 0.9rem 1rem;
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    border-bottom: 1px solid var(--ruled);
+    flex-wrap: wrap;
+  }
+  .wb-current-word {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: var(--lavender-deep);
+    flex: 1;
+    min-width: 100px;
+  }
+  .wb-current-info { font-size: 0.72rem; color: var(--ink-soft); }
+
+  /* Tool buttons */
+  .wb-tools { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+  .tool-btn {
+    padding: 0.38rem 0.8rem;
+    border-radius: 50px;
+    border: 1.5px solid var(--ruled);
+    background: white;
+    cursor: pointer;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+    transition: all 0.18s;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .tool-btn:hover { border-color: var(--lavender-deep); color: var(--lavender-deep); background: rgba(212,197,240,0.15); }
+  .tool-btn.active { background: var(--lavender); border-color: var(--lavender-deep); color: var(--lavender-deep); }
+  .tool-btn.eraser-active { background: #ffe8f0; border-color: var(--sakura-deep); color: var(--sakura-deep); }
+  .tool-btn.clear-btn { border-color: #f0ccd4; color: var(--sakura-deep); }
+  .tool-btn.clear-btn:hover { background: #fff0f4; border-color: var(--sakura-deep); }
+  .tool-btn.tts-main-btn { border-color: var(--mint-deep); color: var(--mint-deep); }
+  .tool-btn.tts-main-btn:hover { background: var(--mint); }
+  .tool-btn.tts-main-btn.speaking { background: var(--mint); animation: pulse 0.8s infinite; }
+
+  /* Color dots */
+  .color-picker { display: flex; gap: 5px; align-items: center; }
+  .color-dot {
+    width: 20px; height: 20px; border-radius: 50%;
+    border: 2px solid transparent;
+    cursor: pointer; transition: transform 0.15s;
+  }
+  .color-dot:hover { transform: scale(1.2); }
+  .color-dot.selected { border-color: var(--ink); transform: scale(1.15); }
+
+  /* Pen size */
+  .size-btn {
+    width: 24px; height: 24px; border-radius: 50%;
+    border: 1.5px solid var(--ruled);
+    background: white; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    transition: all 0.15s;
+  }
+  .size-btn:hover, .size-btn.selected { border-color: var(--lavender-deep); background: var(--lavender); }
+  .size-dot { border-radius: 50%; background: var(--ink); pointer-events: none; }
+
+  /* Canvas */
+  .wb-canvas-wrap {
+    position: relative;
+    background: #fff;
+    border-radius: 0;
+    overflow: hidden;
+    touch-action: none;
+  }
+  .wb-canvas-wrap canvas {
+    display: block;
+    width: 100%;
+    cursor: crosshair;
+    touch-action: none;
+  }
+  .wb-canvas-wrap canvas.eraser-mode { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Crect x='2' y='8' width='20' height='14' rx='3' fill='%23fff' stroke='%23e07a99' stroke-width='2'/%3E%3C/svg%3E") 12 12, auto; }
+
+  /* Ghost hint overlay */
+  .wb-hint-overlay {
+    position: absolute;
+    top: 0; left: 0; right: 0; bottom: 0;
+    display: flex; align-items: center; justify-content: center;
+    pointer-events: none;
+    font-family: 'Noto Serif JP', serif;
+    font-size: clamp(3rem, 10vw, 5.5rem);
+    font-weight: 700;
+    color: rgba(212,197,240,0.28);
+    user-select: none;
+    transition: opacity 0.4s;
+    letter-spacing: 0.05em;
+    text-align: center;
+    padding: 1rem;
+    line-height: 1.2;
+  }
+
+  /* Stroke count */
+  .wb-board-footer {
+    padding: 0.5rem 1rem;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--ruled);
+    font-size: 0.7rem;
+    color: var(--ink-soft);
+  }
+
+  /* TTS speed control */
+  .tts-speed-wrap {
+    display: flex; align-items: center; gap: 0.4rem;
+    font-size: 0.7rem; color: var(--ink-soft);
+  }
+  .tts-speed-wrap select {
+    font-size: 0.7rem;
+    border: 1px solid var(--ruled);
+    border-radius: 8px;
+    padding: 2px 4px;
+    background: white;
+    color: var(--ink);
+    cursor: pointer;
+  }
+
+  /* QUIZ */
+  .quiz-container { max-width: 600px; margin: 0 auto; }
+  .quiz-progress-bar { height: 6px; background: #f0e8e0; border-radius: 10px; margin-bottom: 2rem; overflow: hidden; }
+  .quiz-progress-fill { height: 100%; background: linear-gradient(90deg, var(--sakura-deep), var(--lavender-deep)); border-radius: 10px; transition: width 0.4s ease; }
+  .quiz-score-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: white; border-radius: 50px; padding: 0.3rem 0.9rem; font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); border: 1px solid var(--ruled); margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
+  .quiz-card { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 6px 30px rgba(0,0,0,0.1); text-align: center; }
+  .quiz-type-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.2rem; background: var(--lavender); color: var(--lavender-deep); }
+  .quiz-question { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.4; }
+  .quiz-sub { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 1.8rem; }
+  .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
+  .quiz-opt { padding: 0.9rem 0.5rem; border-radius: 12px; border: 1.5px solid #e8ddd0; background: #fafaf8; cursor: pointer; transition: all 0.2s; font-family: 'Noto Serif JP', serif; font-size: 0.95rem; color: var(--ink); text-align: center; }
+  .quiz-opt:hover:not(:disabled) { border-color: var(--sakura-deep); background: rgba(244,184,200,0.1); transform: translateY(-2px); }
+  .quiz-opt.correct { background: rgba(184,228,216,0.4); border-color: var(--mint-deep); color: #0d5c45; font-weight: 700; }
+  .quiz-opt.wrong { background: rgba(244,184,200,0.3); border-color: var(--sakura-deep); color: #8a3a56; }
+  .quiz-opt:disabled { cursor: default; }
+  .quiz-opt .opt-read { font-size: 0.65rem; color: inherit; opacity: 0.7; display: block; margin-top: 2px; font-family: 'Noto Sans KR', sans-serif; }
+  .quiz-feedback { margin-top: 1.2rem; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 500; display: none; }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.ok { background: rgba(184,228,216,0.3); color: #0d5c45; }
+  .quiz-feedback.ng { background: rgba(244,184,200,0.3); color: #8a3a56; }
+  .quiz-next-btn { margin-top: 1.2rem; padding: 0.7rem 2rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Noto Sans KR', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(139,111,193,0.3); }
+  .quiz-next-btn.show { display: inline-block; }
+  .quiz-next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,111,193,0.4); }
+  .quiz-result { display: none; text-align: center; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 6px 30px rgba(0,0,0,0.1); }
+  .quiz-result.show { display: block; animation: fadeIn 0.4s ease; }
+  .result-emoji { font-size: 4rem; margin-bottom: 1rem; }
+  .result-score { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: var(--ink); }
+  .result-msg { font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1.5rem; }
+  .result-stars { font-size: 1.8rem; margin-bottom: 1.5rem; letter-spacing: 0.2rem; }
+  .retry-btn { padding: 0.8rem 2.5rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(224,122,153,0.4); }
+  .retry-btn:hover { transform: translateY(-2px); }
+
+  /* ERRORS */
+  .error-list { display: flex; flex-direction: column; gap: 1rem; }
+  .error-card { background: white; border-radius: 14px; padding: 1.2rem 1.4rem; border-left: 4px solid var(--sakura-deep); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
+  .error-num { font-size: 0.7rem; font-weight: 700; color: var(--sakura-deep); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
+  .error-wrong { font-family: 'Noto Serif JP', serif; font-size: 1rem; color: #aaa; text-decoration: line-through; margin-bottom: 0.3rem; }
+  .error-arrow { font-size: 0.8rem; color: var(--ink-soft); margin: 0.2rem 0; }
+  .error-right { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--mint-deep); margin-bottom: 0.4rem; }
+  .error-explain { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.5; }
+  .reveal { opacity: 0; transform: translateY(16px); transition: all 0.5s ease; }
+  .reveal.visible { opacity: 1; transform: none; }
+</style>
+</head>
+<body>
+
+<div class="petal" style="left:5%;animation-duration:8s;animation-delay:0s">🌸</div>
+<div class="petal" style="left:20%;animation-duration:11s;animation-delay:2s">🌸</div>
+<div class="petal" style="left:40%;animation-duration:9s;animation-delay:5s">🌸</div>
+<div class="petal" style="left:65%;animation-duration:13s;animation-delay:1s">🌸</div>
+<div class="petal" style="left:80%;animation-duration:10s;animation-delay:3.5s">🌸</div>
+<div class="petal" style="left:92%;animation-duration:7s;animation-delay:6s">🌸</div>
+
+<header>
+  <div class="header-jp">敬語 마스터</div>
+  <div class="header-title">일본어 경어 공부방 🌸</div>
+  <div class="header-sub">존경어 · 겸양어 · 정중어 · 화이트보드 · TTS · 퀴즈 한 곳에서!</div>
+</header>
+
+<nav>
+  <button class="tab-btn active-son" onclick="showTab('study')">📚 경어 학습</button>
+  <button class="tab-btn" onclick="showTab('write')">🖊️ 화이트보드</button>
+  <button class="tab-btn" onclick="showTab('quiz')">🎯 퀴즈</button>
+  <button class="tab-btn" onclick="showTab('errors')">⚠️ 오용 주의</button>
+</nav>
+
+<!-- ======== STUDY ======== -->
+<section id="study" class="section active">
+  <div class="section-head reveal">
+    <h2>📚 경어 학습표</h2>
+    <p>존경어(보라), 겸양어(초록)로 구분했어요! TTS 버튼으로 발음도 들어봐요 🌸</p>
+  </div>
+  <div class="table-wrapper reveal">
+    <table>
+      <thead>
+        <tr>
+          <th>종류</th><th>기본형</th><th>뜻</th><th>존경어 🔊</th><th>겸양어 🔊</th>
+        </tr>
+      </thead>
+      <tbody id="study-tbody"></tbody>
+    </table>
+  </div>
+  <div class="formula-grid reveal" style="margin-top:2rem">
+    <div class="formula-card son">
+      <h3 class="son">💜 존경어 공식</h3>
+      <div class="formula-text">お／ご + ます형 + になる</div>
+      <div class="formula-ex">예) お待ちになる「기다리시다」</div>
+    </div>
+    <div class="formula-card ken">
+      <h3 class="ken">💚 겸양어 공식</h3>
+      <div class="formula-text">お／ご + ます형 + する／いたす</div>
+      <div class="formula-ex">예) お持ちします「들겠습니다」</div>
+    </div>
+    <div class="formula-card cmd">
+      <h3 class="cmd">🌼 명령 공식</h3>
+      <div class="formula-text">お／ご + ます형 + ください</div>
+      <div class="formula-ex">예) お待ちください「기다려 주십시오」</div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== WHITEBOARD ======== -->
+<section id="write" class="section">
+  <div class="section-head reveal">
+    <h2>🖊️ 화이트보드 따라쓰기</h2>
+    <p>왼쪽에서 단어 선택 → 보드에 펜/손가락/애플펜슬로 직접 써봐요! 🌸</p>
+  </div>
+
+  <div class="wb-layout reveal">
+    <!-- Word list -->
+    <div class="wb-wordlist">
+      <div class="wb-wordlist-header">📋 단어 목록 — 클릭해서 선택</div>
+      <div id="wb-word-list"></div>
+    </div>
+
+    <!-- Board panel -->
+    <div class="wb-board-panel">
+      <div class="wb-board-header">
+        <div style="flex:1">
+          <div class="wb-current-word" id="wb-cur-word">단어를 선택해주세요</div>
+          <div class="wb-current-info" id="wb-cur-info">← 왼쪽 목록에서 골라요 🌸</div>
+        </div>
+
+        <!-- TTS main -->
+        <button class="tool-btn tts-main-btn" id="tts-main-btn" onclick="speakCurrent()" title="발음 듣기">
+          🔊 듣기
+        </button>
+
+        <div class="tts-speed-wrap">
+          <span>속도</span>
+          <select id="tts-speed">
+            <option value="0.6">느리게</option>
+            <option value="0.85" selected>보통</option>
+            <option value="1.1">빠르게</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Tool bar -->
+      <div style="padding:0.6rem 1rem; border-bottom:1px solid var(--ruled); display:flex; gap:0.5rem; align-items:center; flex-wrap:wrap;">
+        <button class="tool-btn active" id="btn-pen" onclick="setTool('pen')">✏️ 펜</button>
+        <button class="tool-btn" id="btn-eraser" onclick="setTool('eraser')">🧼 지우개</button>
+
+        <div class="color-picker" id="color-picker">
+          <div class="color-dot selected" style="background:#2a1f3d" data-color="#2a1f3d" onclick="setColor(this)" title="블랙"></div>
+          <div class="color-dot" style="background:#8b6fc1" data-color="#8b6fc1" onclick="setColor(this)" title="라벤더"></div>
+          <div class="color-dot" style="background:#e07a99" data-color="#e07a99" onclick="setColor(this)" title="사쿠라"></div>
+          <div class="color-dot" style="background:#4aab8c" data-color="#4aab8c" onclick="setColor(this)" title="민트"></div>
+          <div class="color-dot" style="background:#c4a04a" data-color="#c4a04a" onclick="setColor(this)" title="골드"></div>
+          <div class="color-dot" style="background:#e07050" data-color="#e07050" onclick="setColor(this)" title="코랄"></div>
+        </div>
+
+        <div style="display:flex;gap:4px;align-items:center;margin-left:2px">
+          <button class="size-btn selected" id="sz-sm" onclick="setSize(3,this)" title="가는 펜"><div class="size-dot" style="width:4px;height:4px"></div></button>
+          <button class="size-btn" id="sz-md" onclick="setSize(7,this)" title="중간 펜"><div class="size-dot" style="width:8px;height:8px"></div></button>
+          <button class="size-btn" id="sz-lg" onclick="setSize(14,this)" title="굵은 펜"><div class="size-dot" style="width:13px;height:13px"></div></button>
+        </div>
+
+        <!-- hint toggle -->
+        <button class="tool-btn" id="btn-hint" onclick="toggleHint()" title="가이드 글씨 보이기/숨기기">👁 가이드</button>
+
+        <button class="tool-btn clear-btn" onclick="clearCanvas()">🗑 전체 지우기</button>
+      </div>
+
+      <!-- Canvas -->
+      <div class="wb-canvas-wrap" id="canvas-wrap">
+        <canvas id="wb-canvas"></canvas>
+        <div class="wb-hint-overlay" id="wb-hint">단어를 선택하면<br>가이드가 나와요</div>
+      </div>
+
+      <div class="wb-board-footer">
+        <span id="wb-stroke-count">필기: 0획</span>
+        <span style="font-size:0.65rem;color:var(--sakura-deep)">💡 애플펜슬 / 손가락 / 마우스 모두 OK!</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ======== QUIZ ======== -->
+<section id="quiz" class="section">
+  <div class="section-head reveal">
+    <h2>🎯 경어 퀴즈</h2>
+    <p>총 10문제 — 몇 점 나올까요? 🌸</p>
+  </div>
+  <div class="quiz-container">
+    <div class="quiz-score-badge">
+      <span>🏆 점수</span>
+      <span id="score-display">0</span>
+      <span style="opacity:0.5">/</span>
+      <span id="total-display">10</span>
+    </div>
+    <div class="quiz-progress-bar">
+      <div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div>
+    </div>
+    <div id="quiz-card" class="quiz-card">
+      <div class="quiz-type-badge" id="quiz-type-badge">존경어</div>
+      <div class="quiz-question" id="quiz-q"></div>
+      <div class="quiz-sub" id="quiz-sub"></div>
+      <div class="quiz-options" id="quiz-opts"></div>
+      <div class="quiz-feedback" id="quiz-feedback"></div>
+      <button class="quiz-next-btn" id="quiz-next" onclick="nextQ()">다음 문제 →</button>
+    </div>
+    <div id="quiz-result" class="quiz-result">
+      <div class="result-emoji" id="result-emoji">🎉</div>
+      <div class="result-score" id="result-score"></div>
+      <div class="result-stars" id="result-stars"></div>
+      <div class="result-msg" id="result-msg"></div>
+      <button class="retry-btn" onclick="startQuiz()">다시 풀기 🌸</button>
+    </div>
+  </div>
+</section>
+
+<!-- ======== ERRORS ======== -->
+<section id="errors" class="section">
+  <div class="section-head reveal">
+    <h2>⚠️ 자주 틀리는 오용 예시</h2>
+    <p>시험에 꼭 나오는 실수 패턴 모음!</p>
+  </div>
+  <div class="error-list" id="error-list"></div>
+</section>
+
+<script>
+// ======== DATA ========
+const keigo = [
+  { base:'行く', read:'이쿠', mean:'가다', son:['いらっしゃる','おいでになる'], sonR:['이랏샤루','오이데니나루'], ken:['参る','伺う'], kenR:['마이루','우카가우'] },
+  { base:'来る', read:'쿠루', mean:'오다', son:['いらっしゃる','おいでになる'], sonR:['이랏샤루','오이데니나루'], ken:['参る','伺う'], kenR:['마이루','우카가우'] },
+  { base:'居る', read:'이루', mean:'있다', son:['いらっしゃる','おいでになる'], sonR:['이랏샤루','오이데니나루'], ken:['おる'], kenR:['오루'] },
+  { base:'食べる・飲む', read:'타베루/노무', mean:'먹다/마시다', son:['召し上がる'], sonR:['메시아가루'], ken:['頂く'], kenR:['이타다쿠'] },
+  { base:'寝る', read:'네루', mean:'자다', son:['お休みになる'], sonR:['오야스미니나루'], ken:['休む'], kenR:['야스무'] },
+  { base:'言う', read:'이우', mean:'말하다', son:['おっしゃる'], sonR:['옷샤루'], ken:['申す','申し上げる'], kenR:['모우스','모우시아게루'] },
+  { base:'見る', read:'미루', mean:'보다', son:['ご覧になる'], sonR:['고란니나루'], ken:['拝見する'], kenR:['하이켄스루'] },
+  { base:'する', read:'스루', mean:'하다', son:['なさる'], sonR:['나사루'], ken:['致す'], kenR:['이타스'] },
+  { base:'ある', read:'아루', mean:'있다(사물)', son:['ございます'], sonR:['고자이마스'], ken:[], kenR:[] },
+  { base:'着る', read:'키루', mean:'입다', son:['お召しになる'], sonR:['오메시니나루'], ken:[], kenR:[] },
+  { base:'知る', read:'시루', mean:'알다', son:['ご存じだ'], sonR:['고존지다'], ken:['存じる'], kenR:['존지루'] },
+  { base:'死ぬ', read:'시누', mean:'죽다', son:['お亡くなりになる'], sonR:['오나쿠나리니나루'], ken:['亡くなる'], kenR:['나쿠나루'] },
+  { base:'くれる', read:'쿠레루', mean:'주다(나에게)', son:['くださる'], sonR:['쿠다사루'], ken:[], kenR:[] },
+  { base:'あげる', read:'아게루', mean:'주다(상대에게)', son:[], sonR:[], ken:['さしあげる'], kenR:['사시아게루'] },
+  { base:'もらう', read:'모라우', mean:'받다', son:[], sonR:[], ken:['いただく'], kenR:['이타다쿠'] },
+];
+
+const errors = [
+  { num:'오용 1', wrong:'先生は帰りになりました', right:'先生はお帰りになりました', explain:'존경어 패턴 お+ます형+になる에서 お를 빠뜨리면 안 돼요!' },
+  { num:'오용 2', wrong:'先生、荷物を持ってあげます', right:'荷物をお持ちします', explain:'선생님께 "내가 해드릴게요"는 겸양어 お持ちします를 써야 해요. あげます는 친구끼리 써요!' },
+  { num:'오용 3', wrong:'あした図書館でお借りします', right:'あした図書館で借ります', explain:'자기 자신의 행동에는 お+동사+します를 쓰면 안 돼요. 자기가 하는 일이라 そのまま써야 해요!' },
+  { num:'오용 4', wrong:'何をお召し上がりになられましたか', right:'何を召し上がりましたか', explain:'이중경어! 召し上がる 자체가 이미 존경어라서 お~になる를 또 붙이면 과잉이에요. 하나만 쓰면 충분해요 🌸' },
+  { num:'오용 5', wrong:'先生、コーヒーをお飲みになりたいですか', right:'先生、コーヒーをお飲みになりますか', explain:'상대방의 욕구를 ~たい로 묻는 건 실례예요. お飲みになりますか가 훨씬 정중해요!' },
+];
+
+// ======== TTS ========
+function speak(text, rate) {
+  if (!('speechSynthesis' in window)) { alert('이 브라우저는 TTS를 지원하지 않아요 😢'); return; }
+  window.speechSynthesis.cancel();
+  const u = new SpeechSynthesisUtterance(text);
+  u.lang = 'ja-JP';
+  u.rate = rate || parseFloat(document.getElementById('tts-speed').value) || 0.85;
+  u.pitch = 1;
+  // Try to find Japanese voice
+  const voices = window.speechSynthesis.getVoices();
+  const jpVoice = voices.find(v => v.lang.startsWith('ja'));
+  if (jpVoice) u.voice = jpVoice;
+  window.speechSynthesis.speak(u);
+  return u;
+}
+
+function speakWord(word, btnEl) {
+  if (btnEl) {
+    document.querySelectorAll('.wb-tts-btn.speaking, .tts-main-btn.speaking').forEach(b => b.classList.remove('speaking'));
+    btnEl.classList.add('speaking');
+    const u = speak(word);
+    if (u) u.onend = () => btnEl.classList.remove('speaking');
+  } else {
+    speak(word);
+  }
+}
+
+function speakCurrent() {
+  const word = document.getElementById('wb-cur-word').textContent;
+  if (!word || word === '단어를 선택해주세요') return;
+  const btn = document.getElementById('tts-main-btn');
+  btn.classList.add('speaking');
+  const u = speak(word);
+  if (u) u.onend = () => btn.classList.remove('speaking');
+}
+
+// ======== STUDY TABLE ========
+const tbody = document.getElementById('study-tbody');
+keigo.forEach(k => {
+  const sonStr = k.son.map((w,i) => `
+    <div style="display:inline-flex;align-items:center;gap:4px;margin:2px 0">
+      <div class="jp-word" style="color:#534AB7">${w}</div>
+      <button onclick="speakWord('${w}', this)" class="wb-tts-btn" title="듣기" style="width:22px;height:22px;font-size:0.7rem">🔊</button>
+    </div>
+    <div class="kr-read">${k.sonR[i]}</div>`).join('') || '<span style="color:#ccc">—</span>';
+  const kenStr = k.ken.map((w,i) => `
+    <div style="display:inline-flex;align-items:center;gap:4px;margin:2px 0">
+      <div class="jp-word" style="color:#0d5c45">${w}</div>
+      <button onclick="speakWord('${w}', this)" class="wb-tts-btn" title="듣기" style="width:22px;height:22px;font-size:0.7rem">🔊</button>
+    </div>
+    <div class="kr-read">${k.kenR[i]}</div>`).join('') || '<span style="color:#ccc">—</span>';
+  tbody.innerHTML += `<tr>
+    <td><span class="tag tag-son">존경어</span><br><span class="tag tag-ken" style="margin-top:3px">겸양어</span></td>
+    <td><div class="jp-word">${k.base}</div><div class="kr-read">${k.read}</div></td>
+    <td style="font-size:0.78rem;color:var(--ink-soft)">${k.mean}</td>
+    <td>${sonStr}</td>
+    <td>${kenStr}</td>
+  </tr>`;
+});
+
+// ======== WHITEBOARD DATA ========
+const writeData = [
+  { type:'son', label:'존경어', base:'行く・来る・居る', word:'いらっしゃる', read:'이랏샤루', mean:'가다/오다/있다 (높임)' },
+  { type:'ken', label:'겸양어', base:'行く・来る',       word:'参る',         read:'마이루',   mean:'가다/오다 (낮춤)' },
+  { type:'son', label:'존경어', base:'食べる・飲む',     word:'召し上がる',   read:'메시아가루', mean:'드시다' },
+  { type:'ken', label:'겸양어', base:'もらう',           word:'いただく',     read:'이타다쿠', mean:'받다 (낮춤)' },
+  { type:'son', label:'존경어', base:'言う',             word:'おっしゃる',   read:'옷샤루',   mean:'말씀하시다' },
+  { type:'ken', label:'겸양어', base:'言う',             word:'申す',         read:'모우스',   mean:'말씀드리다' },
+  { type:'son', label:'존경어', base:'見る',             word:'ご覧になる',   read:'고란니나루', mean:'보시다' },
+  { type:'ken', label:'겸양어', base:'見る',             word:'拝見する',     read:'하이켄스루', mean:'뵙다' },
+  { type:'son', label:'존경어', base:'する',             word:'なさる',       read:'나사루',   mean:'하시다' },
+  { type:'ken', label:'겸양어', base:'する',             word:'致す',         read:'이타스',   mean:'하다 (낮춤)' },
+  { type:'son', label:'존경어', base:'知る',             word:'ご存じだ',     read:'고존지다', mean:'아시다' },
+  { type:'ken', label:'겸양어', base:'知る',             word:'存じる',       read:'존지루',   mean:'알다 (낮춤)' },
+];
+
+// Build word list
+const wbList = document.getElementById('wb-word-list');
+writeData.forEach((d, i) => {
+  const tagColor = d.type === 'son'
+    ? 'background:var(--lavender);color:var(--lavender-deep)'
+    : 'background:var(--mint);color:#0d5c45';
+  wbList.innerHTML += `
+    <div class="wb-word-item" id="wbi-${i}" onclick="selectWord(${i})">
+      <div style="flex:1;min-width:0">
+        <div class="wb-word-jp">${d.word}</div>
+        <div class="wb-word-kr">${d.read} · ${d.mean}</div>
+      </div>
+      <span class="wb-word-tag" style="${tagColor}">${d.label}</span>
+      <button class="wb-tts-btn" onclick="event.stopPropagation(); speakWord('${d.word}', this)" title="발음 듣기">🔊</button>
+    </div>`;
+});
+
+// ======== CANVAS / WHITEBOARD ========
+const canvas = document.getElementById('wb-canvas');
+const ctx = canvas.getContext('2d');
+const wrap = document.getElementById('canvas-wrap');
+
+let tool = 'pen';
+let penColor = '#2a1f3d';
+let penSize = 3;
+let drawing = false;
+let lastX = 0, lastY = 0;
+let strokeCount = 0;
+let showHint = true;
+let currentWordIdx = -1;
+
+function resizeCanvas() {
+  const w = wrap.clientWidth;
+  if (!w || w === 0) return;
+  const h = Math.max(320, Math.round(w * 0.52));
+  let imgData = null;
+  try {
+    if (canvas.width > 0 && canvas.height > 0) {
+      imgData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+    }
+  } catch(e) {}
+  canvas.width = w;
+  canvas.height = h;
+  canvas.style.height = h + 'px';
+  if (imgData) {
+    try { ctx.putImageData(imgData, 0, 0); } catch(e) {}
+  }
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+}
+
+function getPos(e) {
+  const r = canvas.getBoundingClientRect();
+  const scaleX = canvas.width / r.width;
+  const scaleY = canvas.height / r.height;
+  if (e.touches) {
+    return [
+      (e.touches[0].clientX - r.left) * scaleX,
+      (e.touches[0].clientY - r.top) * scaleY
+    ];
+  }
+  return [(e.clientX - r.left) * scaleX, (e.clientY - r.top) * scaleY];
+}
+
+function startDraw(e) {
+  e.preventDefault();
+  drawing = true;
+  [lastX, lastY] = getPos(e);
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  if (tool === 'pen') {
+    strokeCount++;
+    document.getElementById('wb-stroke-count').textContent = `필기: ${strokeCount}획`;
+  }
+}
+
+function draw(e) {
+  if (!drawing) return;
+  e.preventDefault();
+  const [x, y] = getPos(e);
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+  if (tool === 'eraser') {
+    ctx.globalCompositeOperation = 'destination-out';
+    ctx.lineWidth = 36;
+    ctx.strokeStyle = 'rgba(0,0,0,1)';
+  } else {
+    ctx.globalCompositeOperation = 'source-over';
+    ctx.lineWidth = penSize;
+    ctx.strokeStyle = penColor;
+  }
+  ctx.beginPath();
+  ctx.moveTo(lastX, lastY);
+  ctx.lineTo(x, y);
+  ctx.stroke();
+  [lastX, lastY] = [x, y];
+}
+
+function endDraw(e) {
+  if (e) e.preventDefault();
+  drawing = false;
+}
+
+canvas.addEventListener('mousedown', startDraw);
+canvas.addEventListener('mousemove', draw);
+canvas.addEventListener('mouseup', endDraw);
+canvas.addEventListener('mouseleave', endDraw);
+canvas.addEventListener('touchstart', startDraw, { passive: false });
+canvas.addEventListener('touchmove', draw, { passive: false });
+canvas.addEventListener('touchend', endDraw, { passive: false });
+
+function setTool(t) {
+  tool = t;
+  canvas.classList.toggle('eraser-mode', t === 'eraser');
+  document.getElementById('btn-pen').classList.toggle('active', t === 'pen');
+  document.getElementById('btn-eraser').classList.toggle('eraser-active', t === 'eraser');
+  if (t === 'pen') document.getElementById('btn-eraser').classList.remove('active');
+  if (t === 'eraser') document.getElementById('btn-pen').classList.remove('active');
+}
+
+function setColor(el) {
+  penColor = el.dataset.color;
+  document.querySelectorAll('.color-dot').forEach(d => d.classList.remove('selected'));
+  el.classList.add('selected');
+  setTool('pen');
+}
+
+function setSize(s, btn) {
+  penSize = s;
+  document.querySelectorAll('.size-btn').forEach(b => b.classList.remove('selected'));
+  btn.classList.add('selected');
+  setTool('pen');
+}
+
+function clearCanvas() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height);
+  strokeCount = 0;
+  document.getElementById('wb-stroke-count').textContent = '필기: 0획';
+}
+
+function toggleHint() {
+  showHint = !showHint;
+  document.getElementById('wb-hint').style.opacity = showHint ? '1' : '0';
+  document.getElementById('btn-hint').classList.toggle('active', showHint);
+}
+
+function selectWord(i) {
+  currentWordIdx = i;
+  const d = writeData[i];
+  document.querySelectorAll('.wb-word-item').forEach(el => el.classList.remove('selected'));
+  document.getElementById('wbi-'+i).classList.add('selected');
+  document.getElementById('wb-cur-word').textContent = d.word;
+  document.getElementById('wb-cur-info').textContent = `${d.label} · ${d.read} · 기본형: ${d.base} → ${d.mean}`;
+  document.getElementById('wb-hint').textContent = d.word;
+  clearCanvas();
+  // Auto speak on select
+  speak(d.word);
+}
+
+// init canvas
+function initCanvas() {
+  requestAnimationFrame(() => {
+    if (wrap.clientWidth > 0) { resizeCanvas(); }
+    else { setTimeout(initCanvas, 80); }
+  });
+}
+window.addEventListener('load', () => {
+  initCanvas();
+  window.speechSynthesis.onvoiceschanged = () => {};
+});
+window.addEventListener('resize', () => { if (wrap.clientWidth > 0) resizeCanvas(); });
+
+// ======== QUIZ ========
+const allQ = [
+  { type:'존경어', q:'「言う」의 존경어는?', sub:'선생님이 말씀하실 때', opts:['おっしゃる','申す','参る','いただく'], ans:0, read:['옷샤루','모우스','마이루','이타다쿠'] },
+  { type:'겸양어', q:'「言う」의 겸양어는?', sub:'내가 말씀드릴 때', opts:['おっしゃる','申す','なさる','ございます'], ans:1, read:['옷샤루','모우스','나사루','고자이마스'] },
+  { type:'존경어', q:'「食べる」의 존경어는?', sub:'선생님이 드실 때', opts:['頂く','召し上がる','いただく','申す'], ans:1, read:['이타다쿠','메시아가루','이타다쿠','모우스'] },
+  { type:'겸양어', q:'「もらう」의 겸양어는?', sub:'내가 받을 때', opts:['くださる','さしあげる','いただく','おる'], ans:2, read:['쿠다사루','사시아게루','이타다쿠','오루'] },
+  { type:'존경어', q:'「見る」의 존경어는?', sub:'선생님이 보실 때', opts:['拝見する','ご覧になる','存じる','参る'], ans:1, read:['하이켄스루','고란니나루','존지루','마이루'] },
+  { type:'겸양어', q:'「見る」의 겸양어는?', sub:'내가 볼 때', opts:['拝見する','ご覧になる','なさる','おっしゃる'], ans:0, read:['하이켄스루','고란니나루','나사루','옷샤루'] },
+  { type:'존경어', q:'「する」의 존경어는?', sub:'선생님이 하실 때', opts:['致す','参る','なさる','おる'], ans:2, read:['이타스','마이루','나사루','오루'] },
+  { type:'겸양어', q:'「行く・来る」의 겸양어는?', sub:'내가 갈/올 때', opts:['いらっしゃる','参る','おいでになる','なさる'], ans:1, read:['이랏샤루','마이루','오이데니나루','나사루'] },
+  { type:'존경어', q:'「知る」의 존경어는?', sub:'선생님이 아실 때', opts:['存じる','ご存じだ','致す','拝見する'], ans:1, read:['존지루','고존지다','이타스','하이켄스루'] },
+  { type:'오용 주의', q:'다음 중 올바른 표현은?', sub:'선생님의 귀가에 대해 말할 때', opts:['先生は帰りになりました','先生はお帰りになりました','先生は帰らせていただきました','先生はお帰りいたしました'], ans:1, read:['틀림','정답!','틀림','틀림'] },
+];
+
+let qList = [], qIdx = 0, score = 0, answered = false;
+function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
+
+function startQuiz() {
+  qList = shuffle(allQ).slice(0, 10);
+  qIdx = 0; score = 0; answered = false;
+  document.getElementById('quiz-result').classList.remove('show');
+  document.getElementById('quiz-card').style.display = '';
+  document.getElementById('score-display').textContent = 0;
+  renderQ();
+}
+
+function renderQ() {
+  const q = qList[qIdx];
+  document.getElementById('quiz-progress').style.width = (qIdx / qList.length * 100) + '%';
+  document.getElementById('quiz-type-badge').textContent = q.type;
+  document.getElementById('quiz-q').textContent = q.q;
+  document.getElementById('quiz-sub').textContent = q.sub;
+  document.getElementById('quiz-feedback').className = 'quiz-feedback';
+  document.getElementById('quiz-next').className = 'quiz-next-btn';
+  answered = false;
+  const optsDiv = document.getElementById('quiz-opts');
+  optsDiv.innerHTML = '';
+  q.opts.forEach((opt, i) => {
+    const btn = document.createElement('button');
+    btn.className = 'quiz-opt';
+    btn.innerHTML = `${opt}<span class="opt-read">${q.read[i]}</span>`;
+    btn.onclick = () => checkAns(i);
+    optsDiv.appendChild(btn);
+  });
+}
+
+function checkAns(chosen) {
+  if (answered) return;
+  answered = true;
+  const q = qList[qIdx];
+  const btns = document.querySelectorAll('.quiz-opt');
+  btns.forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.ans) b.classList.add('correct');
+    else if (i === chosen) b.classList.add('wrong');
+  });
+  const fb = document.getElementById('quiz-feedback');
+  if (chosen === q.ans) {
+    score++;
+    document.getElementById('score-display').textContent = score;
+    fb.textContent = '🎉 정답이에요! 완벽해요 🌸';
+    fb.className = 'quiz-feedback show ok';
+    speak(q.opts[q.ans]);
+  } else {
+    fb.textContent = `💪 아쉽지만 정답은 「${q.opts[q.ans]}」(${q.read[q.ans]})이에요!`;
+    fb.className = 'quiz-feedback show ng';
+    speak(q.opts[q.ans]);
+  }
+  document.getElementById('quiz-next').className = 'quiz-next-btn show';
+}
+
+function nextQ() {
+  qIdx++;
+  if (qIdx >= qList.length) showResult();
+  else renderQ();
+}
+
+function showResult() {
+  document.getElementById('quiz-progress').style.width = '100%';
+  document.getElementById('quiz-card').style.display = 'none';
+  const res = document.getElementById('quiz-result');
+  res.classList.add('show');
+  const pct = score / qList.length;
+  document.getElementById('result-score').textContent = `${score} / ${qList.length}`;
+  document.getElementById('result-emoji').textContent = pct >= 0.9 ? '🏆' : pct >= 0.7 ? '🌸' : pct >= 0.5 ? '💪' : '🌱';
+  document.getElementById('result-stars').textContent = '⭐'.repeat(Math.round(pct*5));
+  document.getElementById('result-msg').textContent = pct >= 0.9 ? '완벽해요! 경어 마스터 달성! 🎊' : pct >= 0.7 ? '잘했어요! 조금만 더 연습해요 💜' : pct >= 0.5 ? '화이팅! 다시 도전해봐요 🌿' : '괜찮아요! 학습표 보고 다시 도전! 💕';
+}
+
+// ======== ERRORS ========
+const errList = document.getElementById('error-list');
+errors.forEach(e => {
+  errList.innerHTML += `<div class="error-card reveal">
+    <div class="error-num">${e.num}</div>
+    <div class="error-wrong">❌ ${e.wrong}</div>
+    <div class="error-arrow">↓</div>
+    <div class="error-right">✅ ${e.right}</div>
+    <div class="error-explain">💡 ${e.explain}</div>
+  </div>`;
+});
+
+// ======== NAV ========
+const tabMap = { study:0, write:1, quiz:2, errors:3 };
+const tabBtns = document.querySelectorAll('.tab-btn');
+const activeClasses = ['active-son','active-study','active-write','active-quiz'];
+
+function showTab(id) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.getElementById(id).classList.add('active');
+  tabBtns.forEach((b,i) => {
+    b.classList.remove(...activeClasses);
+    if (i === tabMap[id]) b.classList.add(activeClasses[i]);
+  });
+  if (id === 'quiz') startQuiz();
+  if (id === 'write') {
+    setTimeout(() => {
+      if (wrap.clientWidth > 0) resizeCanvas();
+      else setTimeout(() => { if (wrap.clientWidth > 0) resizeCanvas(); }, 150);
+    }, 60);
+  }
+  revealCheck();
+}
+
+function revealCheck() {
+  document.querySelectorAll('.reveal').forEach(el => {
+    if (el.getBoundingClientRect().top < window.innerHeight - 40) el.classList.add('visible');
+  });
+}
+window.addEventListener('scroll', revealCheck);
+revealCheck();
+</script>
+</body>
+</html>
