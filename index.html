@@ -4,7 +4,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>🌸 일본어 경어 마스터</title>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;700&family=Noto+Sans+KR:wght@300;400;500;700&family=DM+Serif+Display&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Klee+One&family=Noto+Sans+KR:wght@400;500;700&display=swap" rel="stylesheet">
 <style>
   :root {
     --sakura: #f4b8c8;
@@ -22,7 +24,7 @@
   }
   * { margin: 0; padding: 0; box-sizing: border-box; }
   body {
-    font-family: 'Noto Sans KR', sans-serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     background: var(--cream);
     color: var(--ink);
     min-height: 100vh;
@@ -54,12 +56,12 @@
     border-bottom: 1px solid rgba(244,184,200,0.4);
   }
   .header-jp {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: clamp(1.2rem, 4vw, 1.8rem);
     color: var(--sakura-deep); letter-spacing: 0.3em; margin-bottom: 0.3rem;
   }
   .header-title {
-    font-family: 'DM Serif Display', serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: clamp(2rem, 7vw, 3.5rem); color: var(--ink); line-height: 1.1;
   }
   .header-sub { font-size: 0.85rem; color: var(--ink-soft); margin-top: 0.5rem; font-weight: 300; letter-spacing: 0.05em; }
@@ -72,7 +74,7 @@
   }
   .tab-btn {
     padding: 0.5rem 1.2rem; border-radius: 50px; border: 1.5px solid transparent;
-    background: white; cursor: pointer; font-family: 'Noto Sans KR', sans-serif;
+    background: white; cursor: pointer; font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: 0.82rem; font-weight: 500; color: var(--ink-soft);
     transition: all 0.25s ease; box-shadow: 0 1px 4px rgba(0,0,0,0.06);
   }
@@ -85,7 +87,7 @@
   .section.active { display: block; animation: fadeIn 0.4s ease; }
   @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
   .section-head { text-align: center; margin-bottom: 2rem; }
-  .section-head h2 { font-family: 'DM Serif Display', serif; font-size: 1.8rem; color: var(--ink); }
+  .section-head h2 { font-family: 'Klee One', cursive; font-size: 1.8rem; color: var(--ink); }
   .section-head p { font-size: 0.82rem; color: var(--ink-soft); margin-top: 0.3rem; }
 
   /* STUDY */
@@ -97,7 +99,7 @@
   tbody tr:hover { background: rgba(244,184,200,0.08); }
   tbody tr:last-child { border-bottom: none; }
   td { padding: 12px 16px; text-align: center; vertical-align: middle; }
-  .jp-word { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; }
+  .jp-word { font-family: 'Klee One', cursive; font-size: 1.1rem; font-weight: 700; }
   .kr-read { font-size: 0.7rem; color: var(--ink-soft); margin-top: 2px; }
   .meaning { font-size: 0.78rem; color: var(--ink-soft); }
   .tag { display: inline-block; font-size: 0.65rem; font-weight: 700; padding: 2px 9px; border-radius: 20px; letter-spacing: 0.05em; }
@@ -113,7 +115,7 @@
   .formula-card h3.son { color: var(--lavender-deep); }
   .formula-card h3.ken { color: var(--mint-deep); }
   .formula-card h3.cmd { color: #c4a04a; }
-  .formula-text { font-family: 'Noto Serif JP', serif; font-size: 0.9rem; color: var(--ink); }
+  .formula-text { font-family: 'Klee One', cursive; font-size: 0.9rem; color: var(--ink); }
   .formula-ex { font-size: 0.7rem; color: var(--ink-soft); margin-top: 0.4rem; }
 
   /* ====== WHITEBOARD WRITE ====== */
@@ -157,7 +159,7 @@
   .wb-word-item:hover { background: rgba(244,184,200,0.12); }
   .wb-word-item.selected { background: rgba(212,197,240,0.25); }
   .wb-word-jp {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: 1rem;
     font-weight: 700;
     color: var(--ink);
@@ -202,7 +204,7 @@
     flex-wrap: wrap;
   }
   .wb-current-word {
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: 1.3rem;
     font-weight: 700;
     color: var(--lavender-deep);
@@ -277,7 +279,7 @@
     top: 0; left: 0; right: 0; bottom: 0;
     display: flex; align-items: center; justify-content: center;
     pointer-events: none;
-    font-family: 'Noto Serif JP', serif;
+    font-family: 'Noto Sans KR', 'Klee One', cursive;
     font-size: clamp(3rem, 10vw, 5.5rem);
     font-weight: 700;
     color: rgba(212,197,240,0.28);
@@ -320,39 +322,204 @@
   .quiz-score-badge { display: inline-flex; align-items: center; gap: 0.4rem; background: white; border-radius: 50px; padding: 0.3rem 0.9rem; font-size: 0.78rem; font-weight: 700; color: var(--ink-soft); border: 1px solid var(--ruled); margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,0.06); }
   .quiz-card { background: white; border-radius: 20px; padding: 2rem; box-shadow: 0 6px 30px rgba(0,0,0,0.1); text-align: center; }
   .quiz-type-badge { display: inline-block; font-size: 0.65rem; font-weight: 700; letter-spacing: 0.08em; padding: 4px 12px; border-radius: 20px; margin-bottom: 1.2rem; background: var(--lavender); color: var(--lavender-deep); }
-  .quiz-question { font-family: 'Noto Serif JP', serif; font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.4; }
+  .quiz-question { font-family: 'Klee One', cursive; font-size: clamp(1.4rem, 5vw, 2.2rem); font-weight: 700; color: var(--ink); margin-bottom: 0.5rem; line-height: 1.4; }
   .quiz-sub { font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 1.8rem; }
   .quiz-options { display: grid; grid-template-columns: 1fr 1fr; gap: 0.7rem; }
-  .quiz-opt { padding: 0.9rem 0.5rem; border-radius: 12px; border: 1.5px solid #e8ddd0; background: #fafaf8; cursor: pointer; transition: all 0.2s; font-family: 'Noto Serif JP', serif; font-size: 0.95rem; color: var(--ink); text-align: center; }
+  .quiz-opt { padding: 0.9rem 0.5rem; border-radius: 12px; border: 1.5px solid #e8ddd0; background: #fafaf8; cursor: pointer; transition: all 0.2s; font-family: 'Klee One', cursive; font-size: 0.95rem; color: var(--ink); text-align: center; }
   .quiz-opt:hover:not(:disabled) { border-color: var(--sakura-deep); background: rgba(244,184,200,0.1); transform: translateY(-2px); }
   .quiz-opt.correct { background: rgba(184,228,216,0.4); border-color: var(--mint-deep); color: #0d5c45; font-weight: 700; }
   .quiz-opt.wrong { background: rgba(244,184,200,0.3); border-color: var(--sakura-deep); color: #8a3a56; }
   .quiz-opt:disabled { cursor: default; }
-  .quiz-opt .opt-read { font-size: 0.65rem; color: inherit; opacity: 0.7; display: block; margin-top: 2px; font-family: 'Noto Sans KR', sans-serif; }
+  .quiz-opt .opt-read { font-size: 0.65rem; color: inherit; opacity: 0.7; display: block; margin-top: 2px; font-family: 'Klee One', cursive; }
   .quiz-feedback { margin-top: 1.2rem; padding: 0.8rem 1rem; border-radius: 10px; font-size: 0.82rem; font-weight: 500; display: none; }
   .quiz-feedback.show { display: block; }
   .quiz-feedback.ok { background: rgba(184,228,216,0.3); color: #0d5c45; }
   .quiz-feedback.ng { background: rgba(244,184,200,0.3); color: #8a3a56; }
-  .quiz-next-btn { margin-top: 1.2rem; padding: 0.7rem 2rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Noto Sans KR', sans-serif; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(139,111,193,0.3); }
+  .quiz-next-btn { margin-top: 1.2rem; padding: 0.7rem 2rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Klee One', cursive; font-size: 0.85rem; font-weight: 700; cursor: pointer; display: none; transition: all 0.2s; box-shadow: 0 4px 16px rgba(139,111,193,0.3); }
   .quiz-next-btn.show { display: inline-block; }
   .quiz-next-btn:hover { transform: translateY(-2px); box-shadow: 0 6px 20px rgba(139,111,193,0.4); }
   .quiz-result { display: none; text-align: center; padding: 2rem; background: white; border-radius: 20px; box-shadow: 0 6px 30px rgba(0,0,0,0.1); }
   .quiz-result.show { display: block; animation: fadeIn 0.4s ease; }
   .result-emoji { font-size: 4rem; margin-bottom: 1rem; }
-  .result-score { font-family: 'DM Serif Display', serif; font-size: 3.5rem; color: var(--ink); }
+  .result-score { font-family: 'Klee One', cursive; font-size: 3.5rem; color: var(--ink); }
   .result-msg { font-size: 1rem; color: var(--ink-soft); margin: 0.5rem 0 1.5rem; }
   .result-stars { font-size: 1.8rem; margin-bottom: 1.5rem; letter-spacing: 0.2rem; }
-  .retry-btn { padding: 0.8rem 2.5rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Noto Sans KR', sans-serif; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(224,122,153,0.4); }
+  .retry-btn { padding: 0.8rem 2.5rem; border-radius: 50px; border: none; background: linear-gradient(135deg, var(--sakura-deep), var(--lavender-deep)); color: white; font-family: 'Klee One', cursive; font-size: 0.9rem; font-weight: 700; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px rgba(224,122,153,0.4); }
   .retry-btn:hover { transform: translateY(-2px); }
 
   /* ERRORS */
   .error-list { display: flex; flex-direction: column; gap: 1rem; }
   .error-card { background: white; border-radius: 14px; padding: 1.2rem 1.4rem; border-left: 4px solid var(--sakura-deep); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .error-num { font-size: 0.7rem; font-weight: 700; color: var(--sakura-deep); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
-  .error-wrong { font-family: 'Noto Serif JP', serif; font-size: 1rem; color: #aaa; text-decoration: line-through; margin-bottom: 0.3rem; }
+  .error-wrong { font-family: 'Klee One', cursive; font-size: 1rem; color: #aaa; text-decoration: line-through; margin-bottom: 0.3rem; }
   .error-arrow { font-size: 0.8rem; color: var(--ink-soft); margin: 0.2rem 0; }
-  .error-right { font-family: 'Noto Serif JP', serif; font-size: 1.1rem; font-weight: 700; color: var(--mint-deep); margin-bottom: 0.4rem; }
+  .error-right { font-family: 'Klee One', cursive; font-size: 1.1rem; font-weight: 700; color: var(--mint-deep); margin-bottom: 0.4rem; }
   .error-explain { font-size: 0.78rem; color: var(--ink-soft); line-height: 1.5; }
+
+  /* ====== FLASHCARD ====== */
+  .fc-wrap { max-width: 680px; margin: 0 auto; }
+  .fc-filter-row {
+    display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 1.8rem;
+  }
+  .fc-filter-btn {
+    padding: 0.4rem 1.1rem; border-radius: 50px; border: 1.5px solid var(--ruled);
+    background: white; font-family: 'Noto Sans KR','Klee One',cursive; font-size: 0.78rem;
+    font-weight: 500; color: var(--ink-soft); cursor: pointer; transition: all 0.2s;
+  }
+  .fc-filter-btn:hover { border-color: var(--lavender-deep); color: var(--lavender-deep); }
+  .fc-filter-btn.on { background: var(--lavender); border-color: var(--lavender-deep); color: var(--lavender-deep); }
+  .fc-filter-btn.on.ken { background: var(--mint); border-color: var(--mint-deep); color: #0d5c45; }
+  .fc-filter-btn.on.all { background: var(--sakura); border-color: var(--sakura-deep); color: #8a3a56; }
+
+  .fc-counter {
+    text-align: center; font-size: 0.8rem; color: var(--ink-soft); margin-bottom: 1rem;
+  }
+
+  /* 3D flip card */
+  .fc-scene {
+    width: 100%; height: 340px;
+    perspective: 1200px;
+    cursor: pointer;
+    margin-bottom: 1.4rem;
+    -webkit-tap-highlight-color: transparent;
+  }
+  @media (max-width: 500px) { .fc-scene { height: 280px; } }
+
+  .fc-card {
+    width: 100%; height: 100%;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.55s cubic-bezier(0.4,0,0.2,1);
+    border-radius: 28px;
+  }
+  .fc-card.flipped { transform: rotateY(180deg); }
+
+  .fc-face {
+    position: absolute; inset: 0;
+    border-radius: 28px;
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    padding: 2rem;
+    box-shadow: 0 12px 48px rgba(0,0,0,0.13);
+    overflow: hidden;
+  }
+  .fc-face::before {
+    content: '';
+    position: absolute; inset: 0; border-radius: 28px;
+    opacity: 0.06;
+    background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23000' fill-opacity='1'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    pointer-events: none;
+  }
+
+  .fc-front {
+    background: linear-gradient(135deg, #f0eafe 0%, #fce8f0 100%);
+    border: 2px solid rgba(212,197,240,0.6);
+  }
+  .fc-back {
+    background: linear-gradient(135deg, #e1f5ee 0%, #f0faff 100%);
+    border: 2px solid rgba(184,228,216,0.6);
+    transform: rotateY(180deg);
+  }
+
+  .fc-tag-label {
+    font-size: 0.7rem; font-weight: 700; letter-spacing: 0.08em;
+    padding: 4px 14px; border-radius: 20px;
+    margin-bottom: 1.2rem;
+  }
+  .fc-tag-son { background: var(--lavender); color: var(--lavender-deep); }
+  .fc-tag-ken { background: var(--mint); color: #0d5c45; }
+
+  .fc-base-word {
+    font-family: 'Klee One', cursive;
+    font-size: clamp(2.8rem, 10vw, 5rem);
+    color: var(--ink);
+    line-height: 1.15;
+    text-align: center;
+    margin-bottom: 0.5rem;
+  }
+  .fc-base-read {
+    font-size: 0.85rem; color: var(--ink-soft); margin-bottom: 0.3rem;
+  }
+  .fc-base-mean {
+    font-size: 0.8rem; color: var(--lavender-deep); font-weight: 700;
+    background: rgba(212,197,240,0.3); padding: 3px 12px; border-radius: 20px;
+  }
+  .fc-tap-hint {
+    position: absolute; bottom: 1rem;
+    font-size: 0.68rem; color: rgba(90,74,106,0.45);
+    letter-spacing: 0.05em;
+  }
+
+  .fc-answer-label {
+    font-size: 0.72rem; color: var(--ink-soft); margin-bottom: 0.8rem; letter-spacing: 0.05em;
+  }
+  .fc-keigo-word {
+    font-family: 'Klee One', cursive;
+    font-size: clamp(2.2rem, 8vw, 4rem);
+    color: var(--mint-deep);
+    line-height: 1.2;
+    text-align: center;
+    margin-bottom: 0.4rem;
+  }
+  .fc-keigo-read {
+    font-size: 0.9rem; color: var(--ink-soft); margin-bottom: 0.5rem;
+  }
+  .fc-keigo-second {
+    font-family: 'Klee One', cursive;
+    font-size: 1.5rem; color: var(--lavender-deep);
+    margin-top: 0.4rem;
+  }
+  .fc-keigo-read2 { font-size: 0.78rem; color: var(--ink-soft); }
+
+  /* nav buttons */
+  .fc-nav {
+    display: flex; align-items: center; justify-content: center; gap: 1rem;
+  }
+  .fc-nav-btn {
+    width: 52px; height: 52px; border-radius: 50%;
+    border: 2px solid var(--ruled);
+    background: white; font-size: 1.3rem;
+    cursor: pointer; display: flex; align-items: center; justify-content: center;
+    transition: all 0.2s; box-shadow: 0 2px 10px rgba(0,0,0,0.07);
+    color: var(--ink-soft);
+  }
+  .fc-nav-btn:hover { border-color: var(--lavender-deep); color: var(--lavender-deep); background: var(--lavender); transform: scale(1.08); }
+  .fc-nav-btn:active { transform: scale(0.95); }
+
+  .fc-speak-btn {
+    padding: 0.55rem 1.4rem; border-radius: 50px;
+    border: 1.5px solid var(--mint-deep);
+    background: white; color: var(--mint-deep);
+    font-family: 'Noto Sans KR','Klee One',cursive; font-size: 0.82rem; font-weight: 600;
+    cursor: pointer; transition: all 0.18s;
+    display: flex; align-items: center; gap: 0.3rem;
+  }
+  .fc-speak-btn:hover { background: var(--mint); }
+  .fc-speak-btn.speaking { background: var(--mint); animation: pulse 0.8s infinite; }
+
+  .fc-progress-row {
+    display: flex; align-items: center; gap: 0.8rem; margin-top: 1.4rem; justify-content: center;
+  }
+  .fc-dots {
+    display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; max-width: 400px;
+  }
+  .fc-dot {
+    width: 9px; height: 9px; border-radius: 50%;
+    background: var(--ruled); transition: background 0.3s;
+  }
+  .fc-dot.seen { background: var(--lavender-deep); }
+  .fc-dot.current { background: var(--sakura-deep); transform: scale(1.3); }
+
+  .fc-shuffle-btn {
+    padding: 0.35rem 0.9rem; border-radius: 50px;
+    border: 1.5px solid var(--ruled); background: white;
+    font-family: 'Noto Sans KR','Klee One',cursive; font-size: 0.72rem;
+    color: var(--ink-soft); cursor: pointer; transition: all 0.18s;
+  }
+  .fc-shuffle-btn:hover { border-color: var(--sakura-deep); color: var(--sakura-deep); background: #fff0f4; }
+
   .reveal { opacity: 0; transform: translateY(16px); transition: all 0.5s ease; }
   .reveal.visible { opacity: 1; transform: none; }
 </style>
@@ -377,6 +544,7 @@
   <button class="tab-btn" onclick="showTab('write')">🖊️ 화이트보드</button>
   <button class="tab-btn" onclick="showTab('quiz')">🎯 퀴즈</button>
   <button class="tab-btn" onclick="showTab('errors')">⚠️ 오용 주의</button>
+  <button class="tab-btn" onclick="showTab('flash')">🃏 플래시카드</button>
 </nav>
 
 <!-- ======== STUDY ======== -->
@@ -532,6 +700,57 @@
     <p>시험에 꼭 나오는 실수 패턴 모음!</p>
   </div>
   <div class="error-list" id="error-list"></div>
+</section>
+
+<!-- ======== FLASHCARD ======== -->
+<section id="flash" class="section">
+  <div class="section-head reveal">
+    <h2>🃏 플래시카드</h2>
+    <p>카드를 탭하면 뒤집혀요! 존경어 ↔ 기본형을 외워봐요 🌸</p>
+  </div>
+  <div class="fc-wrap reveal">
+    <div class="fc-filter-row">
+      <button class="fc-filter-btn on all" onclick="setFcFilter('all',this)">🌸 전체</button>
+      <button class="fc-filter-btn" onclick="setFcFilter('son',this)">💜 존경어</button>
+      <button class="fc-filter-btn ken" onclick="setFcFilter('ken',this)">💚 겸양어</button>
+    </div>
+
+    <div class="fc-counter" id="fc-counter">1 / 1</div>
+
+    <div class="fc-scene" id="fc-scene" onclick="flipCard()">
+      <div class="fc-card" id="fc-card">
+        <!-- FRONT -->
+        <div class="fc-face fc-front">
+          <div class="fc-tag-label fc-tag-son" id="fc-front-tag">존경어</div>
+          <div class="fc-base-word" id="fc-front-word">言う</div>
+          <div class="fc-base-read" id="fc-front-read">이우</div>
+          <div class="fc-base-mean" id="fc-front-mean">말하다</div>
+          <div class="fc-tap-hint">탭해서 정답 확인 👆</div>
+        </div>
+        <!-- BACK -->
+        <div class="fc-face fc-back">
+          <div class="fc-answer-label">정답 경어형</div>
+          <div class="fc-tag-label fc-tag-son" id="fc-back-tag">존경어</div>
+          <div class="fc-keigo-word" id="fc-back-word1"></div>
+          <div class="fc-keigo-read" id="fc-back-read1"></div>
+          <div class="fc-keigo-second" id="fc-back-word2"></div>
+          <div class="fc-keigo-read2" id="fc-back-read2"></div>
+          <div class="fc-tap-hint">탭하면 다음 카드로 👆</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="fc-nav">
+      <button class="fc-nav-btn" onclick="fcMove(-1)" title="이전">←</button>
+      <button class="fc-speak-btn" id="fc-speak-btn" onclick="fcSpeak()">🔊 발음 듣기</button>
+      <button class="fc-nav-btn" onclick="fcMove(1)" title="다음">→</button>
+    </div>
+
+    <div class="fc-progress-row">
+      <div class="fc-dots" id="fc-dots"></div>
+      <button class="fc-shuffle-btn" onclick="fcShuffle()">🔀 섞기</button>
+    </div>
+  </div>
 </section>
 
 <script>
@@ -912,9 +1131,9 @@ errors.forEach(e => {
 });
 
 // ======== NAV ========
-const tabMap = { study:0, write:1, quiz:2, errors:3 };
+const tabMap = { study:0, write:1, quiz:2, errors:3, flash:4 };
 const tabBtns = document.querySelectorAll('.tab-btn');
-const activeClasses = ['active-son','active-study','active-write','active-quiz'];
+const activeClasses = ['active-son','active-study','active-write','active-quiz','active-son'];
 
 function showTab(id) {
   document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
@@ -924,6 +1143,7 @@ function showTab(id) {
     if (i === tabMap[id]) b.classList.add(activeClasses[i]);
   });
   if (id === 'quiz') startQuiz();
+  if (id === 'flash') initFlash();
   if (id === 'write') {
     setTimeout(() => {
       if (wrap.clientWidth > 0) resizeCanvas();
@@ -931,6 +1151,128 @@ function showTab(id) {
     }, 60);
   }
   revealCheck();
+}
+
+// ======== FLASHCARD ========
+const fcAllCards = [];
+keigo.forEach(k => {
+  k.son.forEach((w, i) => {
+    fcAllCards.push({ type:'son', base:k.base, read:k.read, mean:k.mean, words:[w], reads:[k.sonR[i]], extra: k.son[i+1] ? [k.son[i+1], k.sonR[i+1]] : null });
+  });
+  k.ken.forEach((w, i) => {
+    fcAllCards.push({ type:'ken', base:k.base, read:k.read, mean:k.mean, words:[w], reads:[k.kenR[i]], extra: k.ken[i+1] ? [k.ken[i+1], k.kenR[i+1]] : null });
+  });
+});
+
+// Dedupe: merge cards with same base+type so alt forms show on one card
+const fcMerged = [];
+const seen = {};
+keigo.forEach(k => {
+  if (k.son.length) {
+    const key = k.base + '_son';
+    if (!seen[key]) {
+      seen[key] = true;
+      fcMerged.push({ type:'son', base:k.base, read:k.read, mean:k.mean, w1:k.son[0], r1:k.sonR[0], w2:k.son[1]||'', r2:k.sonR[1]||'' });
+    }
+  }
+  if (k.ken.length) {
+    const key = k.base + '_ken';
+    if (!seen[key]) {
+      seen[key] = true;
+      fcMerged.push({ type:'ken', base:k.base, read:k.read, mean:k.mean, w1:k.ken[0], r1:k.kenR[0], w2:k.ken[1]||'', r2:k.kenR[1]||'' });
+    }
+  }
+});
+
+let fcDeck = [...fcMerged];
+let fcIdx = 0;
+let fcFlipped = false;
+let fcFilter = 'all';
+
+function setFcFilter(f, btn) {
+  fcFilter = f;
+  document.querySelectorAll('.fc-filter-btn').forEach(b => {
+    b.classList.remove('on','ken','all');
+  });
+  btn.classList.add('on');
+  if (f === 'ken') btn.classList.add('ken');
+  if (f === 'all') btn.classList.add('all');
+  initFlash();
+}
+
+function initFlash() {
+  fcDeck = fcMerged.filter(c => fcFilter === 'all' || c.type === fcFilter);
+  fcIdx = 0;
+  fcFlipped = false;
+  renderFcCard();
+}
+
+function renderFcCard() {
+  if (!fcDeck.length) return;
+  const c = fcDeck[fcIdx];
+  const card = document.getElementById('fc-card');
+  card.classList.remove('flipped');
+  fcFlipped = false;
+
+  // Front
+  const tagClass = c.type === 'son' ? 'fc-tag-son' : 'fc-tag-ken';
+  const tagLabel = c.type === 'son' ? '존경어' : '겸양어';
+  document.getElementById('fc-front-tag').className = 'fc-tag-label ' + tagClass;
+  document.getElementById('fc-front-tag').textContent = tagLabel + ' — 경어형은?';
+  document.getElementById('fc-front-word').textContent = c.base;
+  document.getElementById('fc-front-read').textContent = c.read;
+  document.getElementById('fc-front-mean').textContent = c.mean;
+
+  // Back
+  document.getElementById('fc-back-tag').className = 'fc-tag-label ' + tagClass;
+  document.getElementById('fc-back-tag').textContent = tagLabel;
+  document.getElementById('fc-back-word1').textContent = c.w1;
+  document.getElementById('fc-back-read1').textContent = c.r1;
+  document.getElementById('fc-back-word2').textContent = c.w2;
+  document.getElementById('fc-back-read2').textContent = c.w2 ? '/ ' + c.r2 : '';
+
+  // Counter
+  document.getElementById('fc-counter').textContent = `${fcIdx + 1} / ${fcDeck.length}`;
+
+  // Dots
+  const dotsEl = document.getElementById('fc-dots');
+  dotsEl.innerHTML = fcDeck.map((_, i) =>
+    `<div class="fc-dot ${i < fcIdx ? 'seen' : i === fcIdx ? 'current' : ''}"></div>`
+  ).join('');
+}
+
+function flipCard() {
+  const card = document.getElementById('fc-card');
+  if (!fcFlipped) {
+    card.classList.add('flipped');
+    fcFlipped = true;
+    // auto speak answer
+    const c = fcDeck[fcIdx];
+    speak(c.w1);
+  } else {
+    fcMove(1);
+  }
+}
+
+function fcMove(dir) {
+  fcIdx = (fcIdx + dir + fcDeck.length) % fcDeck.length;
+  renderFcCard();
+}
+
+function fcShuffle() {
+  fcDeck = fcDeck.sort(() => Math.random() - 0.5);
+  fcIdx = 0;
+  renderFcCard();
+}
+
+function fcSpeak() {
+  if (!fcDeck.length) return;
+  const c = fcDeck[fcIdx];
+  const btn = document.getElementById('fc-speak-btn');
+  btn.classList.add('speaking');
+  const word = fcFlipped ? c.w1 : c.base;
+  const u = speak(word);
+  if (u) u.onend = () => btn.classList.remove('speaking');
 }
 
 function revealCheck() {
