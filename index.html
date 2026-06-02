@@ -1265,6 +1265,14 @@ function fcShuffle() {
   renderFcCard();
 }
 
+document.addEventListener('keydown', e => {
+  if (document.getElementById('flash').classList.contains('active')) {
+    if (e.code === 'Space') { e.preventDefault(); flipCard(); }
+    if (e.code === 'ArrowRight') fcMove(1);
+    if (e.code === 'ArrowLeft') fcMove(-1);
+  }
+});
+
 function fcSpeak() {
   if (!fcDeck.length) return;
   const c = fcDeck[fcIdx];
