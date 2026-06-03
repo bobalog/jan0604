@@ -348,6 +348,24 @@
   .retry-btn:hover { transform: translateY(-2px); }
 
   /* ERRORS */
+  /* Quiz mode cards */
+  .qmode-card {
+    background: white; border-radius: 18px; padding: 1.4rem 1rem;
+    border: 2px solid var(--ruled); cursor: pointer; transition: all 0.22s;
+    text-align: center; box-shadow: 0 2px 12px rgba(0,0,0,0.05);
+  }
+  .qmode-card:hover { transform: translateY(-4px); box-shadow: 0 8px 28px rgba(0,0,0,0.12); }
+  .qmode-emoji { font-size: 2.2rem; margin-bottom: 0.4rem; }
+  .qmode-title { font-size: 1rem; font-weight: 700; color: var(--ink); margin-bottom: 0.2rem; }
+  .qmode-sub { font-size: 0.72rem; color: var(--ink-soft); }
+  .qload-spinner {
+    width: 44px; height: 44px; border-radius: 50%;
+    border: 4px solid var(--lavender);
+    border-top-color: var(--lavender-deep);
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
   .error-list { display: flex; flex-direction: column; gap: 1rem; }
   .error-card { background: white; border-radius: 14px; padding: 1.2rem 1.4rem; border-left: 4px solid var(--sakura-deep); box-shadow: 0 2px 12px rgba(0,0,0,0.06); }
   .error-num { font-size: 0.7rem; font-weight: 700; color: var(--sakura-deep); margin-bottom: 0.5rem; letter-spacing: 0.05em; }
@@ -662,34 +680,89 @@
 <!-- ======== QUIZ ======== -->
 <section id="quiz" class="section">
   <div class="section-head reveal">
-    <h2>🎯 경어 퀴즈</h2>
-    <p>총 10문제 — 몇 점 나올까요? 🌸</p>
+    <h2>🎯 AI 경어 퀴즈</h2>
+    <p>Claude가 매번 새로운 문제를 만들어줘요! 앙케이트 시험 완벽 대비 🌸</p>
   </div>
   <div class="quiz-container">
-    <div class="quiz-score-badge">
-      <span>🏆 점수</span>
-      <span id="score-display">0</span>
-      <span style="opacity:0.5">/</span>
-      <span id="total-display">10</span>
+
+    <!-- Mode select -->
+    <div id="quiz-mode-screen" style="text-align:center">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:0.9rem;margin-bottom:1.2rem">
+        <div class="qmode-card" onclick="startAiQuiz('존경어')" style="border-color:var(--lavender-deep)">
+          <div class="qmode-emoji">💜</div>
+          <div class="qmode-title">존경어만</div>
+          <div class="qmode-sub">尊敬語 집중 연습</div>
+        </div>
+        <div class="qmode-card" onclick="startAiQuiz('겸양어')" style="border-color:var(--mint-deep)">
+          <div class="qmode-emoji">💚</div>
+          <div class="qmode-title">겸양어만</div>
+          <div class="qmode-sub">謙譲語 집중 연습</div>
+        </div>
+        <div class="qmode-card" onclick="startAiQuiz('전체')" style="border-color:var(--sakura-deep);grid-column:span 2">
+          <div class="qmode-emoji">🌸</div>
+          <div class="qmode-title">전체 랜덤</div>
+          <div class="qmode-sub">존경어 + 겸양어 + 오용 주의 섞어서!</div>
+        </div>
+        <div class="qmode-card" onclick="startAiQuiz('오용')" style="border-color:#c4a04a;grid-column:span 2">
+          <div class="qmode-emoji">⚠️</div>
+          <div class="qmode-title">오용 함정 퀴즈</div>
+          <div class="qmode-sub">시험에 꼭 나오는 틀리기 쉬운 표현!</div>
+        </div>
+      </div>
+      <p style="font-size:0.75rem;color:var(--ink-soft)">💡 Claude AI가 매번 다른 문제를 출제해요</p>
     </div>
-    <div class="quiz-progress-bar">
-      <div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div>
+
+    <!-- Quiz play screen -->
+    <div id="quiz-play-screen" style="display:none">
+      <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:0.5rem">
+        <div class="quiz-score-badge">
+          <span>🏆</span>
+          <span id="score-display">0</span>
+          <span style="opacity:0.5">/</span>
+          <span id="total-display">10</span>
+        </div>
+        <button onclick="backToModeSelect()" style="font-size:0.72rem;padding:0.3rem 0.8rem;border-radius:20px;border:1px solid var(--ruled);background:white;cursor:pointer;color:var(--ink-soft)">← 모드 선택</button>
+      </div>
+      <div class="quiz-progress-bar">
+        <div class="quiz-progress-fill" id="quiz-progress" style="width:0%"></div>
+      </div>
+
+      <!-- Loading state -->
+      <div id="quiz-loading" style="display:none">
+        <div class="quiz-card" style="min-height:260px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:1rem">
+          <div class="qload-spinner"></div>
+          <div style="font-size:0.85rem;color:var(--ink-soft)" id="quiz-loading-msg">Claude가 문제를 만드는 중... 🌸</div>
+        </div>
+      </div>
+
+      <!-- Question card -->
+      <div id="quiz-card" class="quiz-card" style="display:none">
+        <div style="display:flex;align-items:center;justify-content:center;gap:0.5rem;margin-bottom:1rem;flex-wrap:wrap">
+          <div class="quiz-type-badge" id="quiz-type-badge">존경어</div>
+          <div style="font-size:0.68rem;color:var(--ink-soft)" id="quiz-qnum">1 / 10</div>
+        </div>
+        <div class="quiz-question" id="quiz-q"></div>
+        <div class="quiz-sub" id="quiz-sub"></div>
+        <div class="quiz-options" id="quiz-opts"></div>
+        <div class="quiz-feedback" id="quiz-feedback"></div>
+        <div style="display:flex;gap:0.6rem;justify-content:center;margin-top:1.2rem;flex-wrap:wrap">
+          <button class="quiz-next-btn" id="quiz-next" onclick="nextQ()" style="display:none">다음 문제 →</button>
+        </div>
+      </div>
+
+      <!-- Result -->
+      <div id="quiz-result" class="quiz-result" style="display:none">
+        <div class="result-emoji" id="result-emoji">🎉</div>
+        <div class="result-score" id="result-score"></div>
+        <div class="result-stars" id="result-stars"></div>
+        <div class="result-msg" id="result-msg"></div>
+        <div style="display:flex;gap:0.8rem;justify-content:center;flex-wrap:wrap;margin-top:1.2rem">
+          <button class="retry-btn" onclick="retryQuiz()">같은 모드 다시 🔁</button>
+          <button class="retry-btn" onclick="backToModeSelect()" style="background:white;color:var(--sakura-deep);border:2px solid var(--sakura-deep);box-shadow:none">모드 바꾸기 🌸</button>
+        </div>
+      </div>
     </div>
-    <div id="quiz-card" class="quiz-card">
-      <div class="quiz-type-badge" id="quiz-type-badge">존경어</div>
-      <div class="quiz-question" id="quiz-q"></div>
-      <div class="quiz-sub" id="quiz-sub"></div>
-      <div class="quiz-options" id="quiz-opts"></div>
-      <div class="quiz-feedback" id="quiz-feedback"></div>
-      <button class="quiz-next-btn" id="quiz-next" onclick="nextQ()">다음 문제 →</button>
-    </div>
-    <div id="quiz-result" class="quiz-result">
-      <div class="result-emoji" id="result-emoji">🎉</div>
-      <div class="result-score" id="result-score"></div>
-      <div class="result-stars" id="result-stars"></div>
-      <div class="result-msg" id="result-msg"></div>
-      <button class="retry-btn" onclick="startQuiz()">다시 풀기 🌸</button>
-    </div>
+
   </div>
 </section>
 
@@ -1029,94 +1102,191 @@ window.addEventListener('load', () => {
 });
 window.addEventListener('resize', () => { if (wrap.clientWidth > 0) resizeCanvas(); });
 
-// ======== QUIZ ========
-const allQ = [
-  { type:'존경어', q:'「言う」의 존경어는?', sub:'선생님이 말씀하실 때', opts:['おっしゃる','申す','参る','いただく'], ans:0, read:['옷샤루','모우스','마이루','이타다쿠'] },
-  { type:'겸양어', q:'「言う」의 겸양어는?', sub:'내가 말씀드릴 때', opts:['おっしゃる','申す','なさる','ございます'], ans:1, read:['옷샤루','모우스','나사루','고자이마스'] },
-  { type:'존경어', q:'「食べる」의 존경어는?', sub:'선생님이 드실 때', opts:['頂く','召し上がる','いただく','申す'], ans:1, read:['이타다쿠','메시아가루','이타다쿠','모우스'] },
-  { type:'겸양어', q:'「もらう」의 겸양어는?', sub:'내가 받을 때', opts:['くださる','さしあげる','いただく','おる'], ans:2, read:['쿠다사루','사시아게루','이타다쿠','오루'] },
-  { type:'존경어', q:'「見る」의 존경어는?', sub:'선생님이 보실 때', opts:['拝見する','ご覧になる','存じる','参る'], ans:1, read:['하이켄스루','고란니나루','존지루','마이루'] },
-  { type:'겸양어', q:'「見る」의 겸양어는?', sub:'내가 볼 때', opts:['拝見する','ご覧になる','なさる','おっしゃる'], ans:0, read:['하이켄스루','고란니나루','나사루','옷샤루'] },
-  { type:'존경어', q:'「する」의 존경어는?', sub:'선생님이 하실 때', opts:['致す','参る','なさる','おる'], ans:2, read:['이타스','마이루','나사루','오루'] },
-  { type:'겸양어', q:'「行く・来る」의 겸양어는?', sub:'내가 갈/올 때', opts:['いらっしゃる','参る','おいでになる','なさる'], ans:1, read:['이랏샤루','마이루','오이데니나루','나사루'] },
-  { type:'존경어', q:'「知る」의 존경어는?', sub:'선생님이 아실 때', opts:['存じる','ご存じだ','致す','拝見する'], ans:1, read:['존지루','고존지다','이타스','하이켄스루'] },
-  { type:'오용 주의', q:'다음 중 올바른 표현은?', sub:'선생님의 귀가에 대해 말할 때', opts:['先生は帰りになりました','先生はお帰りになりました','先生は帰らせていただきました','先生はお帰りいたしました'], ans:1, read:['틀림','정답!','틀림','틀림'] },
+// ======== AI QUIZ ========
+const keigoDataStr = JSON.stringify(keigo.map(k => ({
+  base: k.base, mean: k.mean,
+  son: k.son, ken: k.ken
+})));
+
+let aiQList = [], aiQIdx = 0, aiScore = 0, aiAnswered = false, currentMode = '전체';
+
+const loadingMsgs = [
+  'Claude가 문제를 만드는 중... 🌸',
+  '경어 데이터 분석 중... 💜',
+  '헷갈리는 문제 골라내는 중... ✨',
+  '앙케이트 스타일로 출제 중... 🎯'
 ];
 
-let qList = [], qIdx = 0, score = 0, answered = false;
-function shuffle(arr) { return [...arr].sort(() => Math.random() - 0.5); }
-
-function startQuiz() {
-  qList = shuffle(allQ).slice(0, 10);
-  qIdx = 0; score = 0; answered = false;
-  document.getElementById('quiz-result').classList.remove('show');
-  document.getElementById('quiz-card').style.display = '';
-  document.getElementById('score-display').textContent = 0;
-  renderQ();
+function backToModeSelect() {
+  document.getElementById('quiz-mode-screen').style.display = '';
+  document.getElementById('quiz-play-screen').style.display = 'none';
 }
 
-function renderQ() {
-  const q = qList[qIdx];
-  document.getElementById('quiz-progress').style.width = (qIdx / qList.length * 100) + '%';
+async function startAiQuiz(mode) {
+  currentMode = mode;
+  document.getElementById('quiz-mode-screen').style.display = 'none';
+  document.getElementById('quiz-play-screen').style.display = '';
+  document.getElementById('quiz-card').style.display = 'none';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-loading').style.display = '';
+  aiQIdx = 0; aiScore = 0; aiAnswered = false;
+  document.getElementById('score-display').textContent = 0;
+  document.getElementById('quiz-progress').style.width = '0%';
+
+  // Cycle loading messages
+  let mi = 0;
+  const msgEl = document.getElementById('quiz-loading-msg');
+  const msgTimer = setInterval(() => {
+    mi = (mi + 1) % loadingMsgs.length;
+    msgEl.textContent = loadingMsgs[mi];
+  }, 1200);
+
+  const modePrompt = {
+    '존경어': '존경어(尊敬語)에 관한 문제만 10개',
+    '겸양어': '겸양어(謙譲語)에 관한 문제만 10개',
+    '전체': '존경어, 겸양어, 오용 예시를 골고루 섞어서 10개',
+    '오용': '자주 틀리는 오용(誤用) 함정 문제 10개. 틀린 문장 고르기, 올바른 표현 고르기 형식으로'
+  }[mode];
+
+  const prompt = `당신은 일본어 경어(敬語) 시험 출제 전문가입니다.
+아래 경어 데이터를 바탕으로 ${modePrompt} 출제해주세요.
+
+경어 데이터:
+${keigoDataStr}
+
+규칙:
+- 각 문제는 4지선다 객관식
+- 문제 유형을 다양하게: "X의 존경어는?", "다음 중 올바른 경어 표현은?", "빈칸에 알맞은 경어는?", "선생님께 말할 때 올바른 표현은?" 등
+- 오답은 비슷하게 생긴 다른 경어로 만들어서 헷갈리게
+- 설명(explain)은 왜 정답인지 한국어로 친절하게 1~2문장
+
+반드시 아래 JSON 형식으로만 응답 (마크다운 없이):
+[
+  {
+    "type": "존경어",
+    "q": "문제 텍스트",
+    "sub": "상황 설명 (예: 선생님이 말씀하실 때)",
+    "opts": ["선택지1", "선택지2", "선택지3", "선택지4"],
+    "ans": 0,
+    "read": ["발음1", "발음2", "발음3", "발음4"],
+    "explain": "정답 해설"
+  }
+]`;
+
+  try {
+    const res = await fetch('https://api.anthropic.com/v1/messages', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        model: 'claude-sonnet-4-20250514',
+        max_tokens: 1000,
+        messages: [{ role: 'user', content: prompt }]
+      })
+    });
+    const data = await res.json();
+    const raw = data.content.map(c => c.text || '').join('');
+    const clean = raw.replace(/```json|```/g, '').trim();
+    aiQList = JSON.parse(clean);
+  } catch(e) {
+    // Fallback to built-in questions
+    aiQList = builtInQ.filter(q => mode === '전체' || q.type.includes(mode === '오용' ? '오용' : mode));
+    if (aiQList.length === 0) aiQList = builtInQ;
+    aiQList = [...aiQList].sort(() => Math.random() - 0.5).slice(0, 10);
+  }
+
+  clearInterval(msgTimer);
+  document.getElementById('quiz-loading').style.display = 'none';
+  renderAiQ();
+}
+
+function retryQuiz() {
+  startAiQuiz(currentMode);
+}
+
+function renderAiQ() {
+  if (!aiQList.length) return;
+  const q = aiQList[aiQIdx];
+  document.getElementById('quiz-card').style.display = '';
+  document.getElementById('quiz-result').style.display = 'none';
+  document.getElementById('quiz-progress').style.width = (aiQIdx / aiQList.length * 100) + '%';
   document.getElementById('quiz-type-badge').textContent = q.type;
+  document.getElementById('quiz-qnum').textContent = `${aiQIdx + 1} / ${aiQList.length}`;
   document.getElementById('quiz-q').textContent = q.q;
-  document.getElementById('quiz-sub').textContent = q.sub;
+  document.getElementById('quiz-sub').textContent = q.sub || '';
   document.getElementById('quiz-feedback').className = 'quiz-feedback';
-  document.getElementById('quiz-next').className = 'quiz-next-btn';
-  answered = false;
+  document.getElementById('quiz-next').style.display = 'none';
+  aiAnswered = false;
+
   const optsDiv = document.getElementById('quiz-opts');
   optsDiv.innerHTML = '';
   q.opts.forEach((opt, i) => {
     const btn = document.createElement('button');
     btn.className = 'quiz-opt';
-    btn.innerHTML = `${opt}<span class="opt-read">${q.read[i]}</span>`;
-    btn.onclick = () => checkAns(i);
+    btn.innerHTML = `${opt}<span class="opt-read">${(q.read && q.read[i]) || ''}</span>`;
+    btn.onclick = () => checkAiAns(i);
     optsDiv.appendChild(btn);
   });
 }
 
-function checkAns(chosen) {
-  if (answered) return;
-  answered = true;
-  const q = qList[qIdx];
-  const btns = document.querySelectorAll('.quiz-opt');
-  btns.forEach((b, i) => {
+function checkAiAns(chosen) {
+  if (aiAnswered) return;
+  aiAnswered = true;
+  const q = aiQList[aiQIdx];
+  document.querySelectorAll('.quiz-opt').forEach((b, i) => {
     b.disabled = true;
     if (i === q.ans) b.classList.add('correct');
     else if (i === chosen) b.classList.add('wrong');
   });
   const fb = document.getElementById('quiz-feedback');
   if (chosen === q.ans) {
-    score++;
-    document.getElementById('score-display').textContent = score;
-    fb.textContent = '🎉 정답이에요! 완벽해요 🌸';
+    aiScore++;
+    document.getElementById('score-display').textContent = aiScore;
+    fb.innerHTML = `🎉 정답! &nbsp;<span style="font-size:0.78rem">${q.explain || ''}</span>`;
     fb.className = 'quiz-feedback show ok';
     speak(q.opts[q.ans]);
   } else {
-    fb.textContent = `💪 아쉽지만 정답은 「${q.opts[q.ans]}」(${q.read[q.ans]})이에요!`;
+    fb.innerHTML = `💪 아쉬워요! 정답은 「${q.opts[q.ans]}」<br><span style="font-size:0.78rem">${q.explain || ''}</span>`;
     fb.className = 'quiz-feedback show ng';
     speak(q.opts[q.ans]);
   }
-  document.getElementById('quiz-next').className = 'quiz-next-btn show';
+  document.getElementById('quiz-next').style.display = 'inline-block';
 }
 
 function nextQ() {
-  qIdx++;
-  if (qIdx >= qList.length) showResult();
-  else renderQ();
+  aiQIdx++;
+  if (aiQIdx >= aiQList.length) showAiResult();
+  else renderAiQ();
 }
 
-function showResult() {
+function showAiResult() {
   document.getElementById('quiz-progress').style.width = '100%';
   document.getElementById('quiz-card').style.display = 'none';
   const res = document.getElementById('quiz-result');
-  res.classList.add('show');
-  const pct = score / qList.length;
-  document.getElementById('result-score').textContent = `${score} / ${qList.length}`;
+  res.style.display = '';
+  const pct = aiScore / aiQList.length;
+  document.getElementById('result-score').textContent = `${aiScore} / ${aiQList.length}`;
   document.getElementById('result-emoji').textContent = pct >= 0.9 ? '🏆' : pct >= 0.7 ? '🌸' : pct >= 0.5 ? '💪' : '🌱';
-  document.getElementById('result-stars').textContent = '⭐'.repeat(Math.round(pct*5));
-  document.getElementById('result-msg').textContent = pct >= 0.9 ? '완벽해요! 경어 마스터 달성! 🎊' : pct >= 0.7 ? '잘했어요! 조금만 더 연습해요 💜' : pct >= 0.5 ? '화이팅! 다시 도전해봐요 🌿' : '괜찮아요! 학습표 보고 다시 도전! 💕';
+  document.getElementById('result-stars').textContent = '⭐'.repeat(Math.round(pct * 5));
+  document.getElementById('result-msg').textContent =
+    pct >= 0.9 ? '완벽해요! 내일 앙케이트 만점 각! 🎊' :
+    pct >= 0.7 ? '잘했어요! 플래시카드로 복습하면 완벽해요 💜' :
+    pct >= 0.5 ? '화이팅! 틀린 부분 학습표에서 다시 봐요 🌿' :
+    '괜찮아요! 경어 학습표 먼저 보고 다시 도전! 💕';
 }
+
+// Built-in fallback questions
+const builtInQ = [
+  { type:'존경어', q:'「言う」의 존경어는?', sub:'선생님이 말씀하실 때', opts:['おっしゃる','申す','参る','いただく'], ans:0, read:['옷샤루','모우스','마이루','이타다쿠'], explain:'おっしゃる는 言う의 존경어예요!' },
+  { type:'겸양어', q:'「言う」의 겸양어는?', sub:'내가 말씀드릴 때', opts:['おっしゃる','申す','なさる','ございます'], ans:1, read:['옷샤루','모우스','나사루','고자이마스'], explain:'申す/申し上げる가 言う의 겸양어예요!' },
+  { type:'존경어', q:'「食べる」의 존경어는?', sub:'선생님이 드실 때', opts:['頂く','召し上がる','いただく','申す'], ans:1, read:['이타다쿠','메시아가루','이타다쿠','모우스'], explain:'召し上がる는 食べる・飲む의 존경어예요!' },
+  { type:'겸양어', q:'「もらう」의 겸양어는?', sub:'내가 받을 때', opts:['くださる','さしあげる','いただく','おる'], ans:2, read:['쿠다사루','사시아게루','이타다쿠','오루'], explain:'いただく가 もらう의 겸양어예요!' },
+  { type:'존경어', q:'「見る」의 존경어는?', sub:'선생님이 보실 때', opts:['拝見する','ご覧になる','存じる','参る'], ans:1, read:['하이켄스루','고란니나루','존지루','마이루'], explain:'ご覧になる가 見る의 존경어예요!' },
+  { type:'겸양어', q:'「見る」의 겸양어는?', sub:'내가 볼 때', opts:['拝見する','ご覧になる','なさる','おっしゃる'], ans:0, read:['하이켄스루','고란니나루','나사루','옷샤루'], explain:'拝見する가 見る의 겸양어예요!' },
+  { type:'존경어', q:'「する」의 존경어는?', sub:'선생님이 하실 때', opts:['致す','参る','なさる','おる'], ans:2, read:['이타스','마이루','나사루','오루'], explain:'なさる가 する의 존경어예요!' },
+  { type:'겸양어', q:'「行く・来る」의 겸양어는?', sub:'내가 갈/올 때', opts:['いらっしゃる','参る','おいでになる','なさる'], ans:1, read:['이랏샤루','마이루','오이데니나루','나사루'], explain:'参る/伺う가 行く・来る의 겸양어예요!' },
+  { type:'오용 주의', q:'다음 중 올바른 표현은?', sub:'선생님의 귀가에 대해 말할 때', opts:['先生は帰りになりました','先生はお帰りになりました','先生は帰らせていただきました','先生はお帰りいたしました'], ans:1, read:['틀림','정답!','틀림','틀림'], explain:'お+ます형+になる 패턴에서 お를 빠뜨리면 안 돼요!' },
+  { type:'오용 주의', q:'이중경어가 아닌 올바른 표현은?', sub:'식사를 하셨는지 여쭤볼 때', opts:['何をお召し上がりになられましたか','何を召し上がりましたか','何をお食べになられましたか','何をお食べになりになりましたか'], ans:1, read:['이중경어','정답!','이중경어','이중경어'], explain:'召し上がる 자체가 존경어라 お~になる를 또 붙이면 이중경어가 돼요!' },
+];
 
 // ======== ERRORS ========
 const errList = document.getElementById('error-list');
@@ -1142,7 +1312,6 @@ function showTab(id) {
     b.classList.remove(...activeClasses);
     if (i === tabMap[id]) b.classList.add(activeClasses[i]);
   });
-  if (id === 'quiz') startQuiz();
   if (id === 'flash') initFlash();
   if (id === 'write') {
     setTimeout(() => {
